@@ -1,0 +1,38 @@
+services:
+  db:
+    container_name: db
+    image: postgres:16.8-alpine3.20
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - blog_network
+    environment:
+      POSTGRES_DB: db_blog
+      POSTGRES_USER: userblog
+      POSTGRES_PASSWORD: db@1234
+    volumes:
+      - db:/var/lib/postgresql/data
+  db_explorer:
+    container_name: db_explorer
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - blog_network
+    environment:
+      PGADMIN_DEFAULT_EMAIL: thiago.arrais@outlook.com
+      PGADMIN_DEFAULT_PASSWORD: db@1234
+    depends_on:
+      - db
+
+networks:
+  blog_network:
+    name: blog_network
+    driver: bridge
+
+volumes:
+  db:
+    name: db
+    driver: local
