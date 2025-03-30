@@ -1,0 +1,46 @@
+services:
+  wordpress:
+    container_name: blog
+    image: wordpress
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - blog_network
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: userblog
+      WORDPRESS_DB_PASSWORD: db@password
+      WORDPRESS_DB_NAME: db_blog
+    volumes:
+      - wordpress:/var/www/html
+  db:
+    container_name: db
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - blog_network
+    environment:
+      MYSQL_DATABASE: db_blog
+      MYSQL_USER: userblog
+      MYSQL_PASSWORD: db@password
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+  db:
+    name: db
+    driver: local
+
+networks:
+  blog_network:
+    name: blog_network
+    driver: bridge
