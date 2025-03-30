@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Baixando a imagem do nginx"
-docker pull nginx
+docker pull nginx:1.27.4-alpine-perl
 
 echo "Criando o container com o nome meu-servidor utilizando a imagem nginx"
 docker run -d --name meu-servidor -p 8080:80 nginx
