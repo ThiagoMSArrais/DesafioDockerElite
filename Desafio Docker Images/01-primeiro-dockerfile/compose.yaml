@@ -1,0 +1,17 @@
+services:
+  web:
+    container_name: web_rota42
+    image: thiagomsarrais/rota42:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8383:80"
+    restart: always
+    networks:
+      - web
+
+networks:
+  web:
+    name: network_rota42
+    driver: bridge
