@@ -1,0 +1,17 @@
+services:
+  app:
+    container_name: app-rota42
+    image: thiagomsarrais/app-rota42:v2
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8000"
+    networks:
+      - app
+
+networks:
+  app:
+    name: network_app_rota42
+    driver: bridge
