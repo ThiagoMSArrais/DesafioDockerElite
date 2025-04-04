@@ -1,0 +1,10 @@
+services:
+  video-converter:
+    container_name: video-converter
+    image: video-converter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./videos:/videos
+    command: ["/videos/meu_video.mp4", "avi"]
